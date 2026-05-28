@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library Management System</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --blue:#2979ff;
+  --blue-dark:#1565c0;
+  --blue-soft:#e3f0ff;
+  --blue-mid:#bbdefb;
+  --charcoal:#2d2d2d;
+  --charcoal-dark:#1a1a1a;
+  --dark:#1a1a2e;
+  --mid:#4a4a6a;
+  --light:#9090b0;
+  --white:#ffffff;
+  --bg:#f0f4f8;
+  --green:#2ecc71;
+  --red:#e74c3c;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:var(--bg);
+  overflow:hidden;
+  height:100vh;width:100vw;
+}
+
+/* =====================================================
+   PAGE 1: SIGN UP
+===================================================== */
+#signup{
+  position:fixed;inset:0;
+  display:flex;
+  z-index:100;
+  overflow:hidden;
+}
+
+/* Left Panel */
+.signup-left{
+  display:none;
+}
+
+.signup-left::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 40%, rgba(41,121,255,0.15) 0%, transparent 60%),
+             radial-gradient(circle at 80% 80%, rgba(41,121,255,0.08) 0%, transparent 50%);
+}
+
+.sl-icon{
+  width:80px;height:80px;
+  background:linear-gradient(135deg,var(--blue-dark),var(--blue));
+  border-radius:20px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;
+  margin-bottom:28px;
+  position:relative;z-index:1;
+  box-shadow:0 12px 40px rgba(41,121,255,0.35);
+  animation:iconPop 0.7s cubic-bezier(.34,1.56,.64,1) forwards 0.2s;
+  opacity:0;
+}
+@keyframes iconPop{
+  from{opacity:0;transform:scale(0.5) rotate(-10deg);}
+  to{opacity:1;transform:scale(1) rotate(0);}
+}
+
+.sl-title{
+  font-family:'Playfair Display',serif;
+  font-size:32px;font-weight:900;
+  color:#fff;text-align:center;
+  line-height:1.25;margin-bottom:12px;
+  position:relative;z-index:1;
+  animation:fadeUp 0.8s ease forwards 0.4s;opacity:0;
+}
+.sl-title span{color:var(--blue);display:block;}
+
+.sl-sub{
+  font-size:13px;color:rgba(255,255,255,0.45);
+  text-align:center;letter-spacing:2px;text-transform:uppercase;
+  position:relative;z-index:1;
+  animation:fadeUp 0.8s ease forwards 0.6s;opacity:0;
+}
+
+.sl-dots{
+  display:flex;gap:8px;margin-top:40px;
+  position:relative;z-index:1;
+  animation:fadeIn 0.6s ease forwards 0.8s;opacity:0;
+}
+.sl-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);}
+.sl-dot.active{background:var(--blue);width:24px;border-radius:4px;}
+
+.bg-circle{
+  position:absolute;border-radius:50%;
+  background:rgba(41,121,255,0.06);
+  animation:floatCircle 6s ease-in-out infinite;
+}
+.bg-circle:nth-child(1){width:300px;height:300px;top:-80px;right:-80px;}
+.bg-circle:nth-child(2){width:200px;height:200px;bottom:-40px;left:-40px;animation-delay:2s;}
+@keyframes floatCircle{
+  0%,100%{transform:translate(0,0);}
+  50%{transform:translate(10px,-15px);}
+}
+
+/* Right Panel — Form */
+.signup-right{
+  flex:1;
+  background:#fff;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:60px 40px;
+  overflow-y:auto;
+}
+.signup-right > * {
+  width:100%;
+  max-width:480px;
+}
+
+.form-badge{
+  font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;
+  color:var(--blue);background:var(--blue-soft);
+  border-radius:20px;padding:5px 16px;
+  display:inline-block;margin-bottom:20px;
+  animation:fadeIn 0.6s ease forwards 0.3s;opacity:0;
+}
+
+.form-heading{
+  font-family:'Playfair Display',serif;
+  font-size:30px;font-weight:900;color:var(--dark);
+  margin-bottom:6px;
+  animation:fadeUp 0.7s ease forwards 0.4s;opacity:0;
+}
+
+.form-sub{
+  font-size:13px;color:var(--light);margin-bottom:36px;
+  animation:fadeUp 0.7s ease forwards 0.5s;opacity:0;
+}
+
+.form-group{
+  margin-bottom:20px;
+  animation:fadeUp 0.7s ease forwards;opacity:0;
+}
+.form-group:nth-child(1){animation-delay:0.5s;}
+.form-group:nth-child(2){animation-delay:0.6s;}
+.form-group:nth-child(3){animation-delay:0.7s;}
+.form-group:nth-child(4){animation-delay:0.8s;}
+
+.form-label{
+  font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--mid);margin-bottom:8px;display:block;
+}
+
+.form-input{
+  width:100%;padding:14px 16px;
+  background:#f8fbff;
+  border:1.5px solid #dde8f5;
+  border-radius:10px;
+  color:var(--dark);font-family:'Poppins',sans-serif;
+  font-size:14px;outline:none;
+  transition:all 0.25s;
+}
+.form-input:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(41,121,255,0.1);
+  background:#fff;
+}
+.form-input::placeholder{color:rgba(74,74,106,0.3);}
+
+.form-input.error{border-color:var(--red);box-shadow:0 0 0 3px rgba(231,76,60,0.1);}
+
+.pwd-wrap{position:relative;}
+.pwd-toggle{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;
+  font-size:16px;color:var(--light);padding:0;width:auto;
+  transition:color 0.2s;
+}
+.pwd-toggle:hover{color:var(--blue);}
+
+.strength-bar{
+  display:flex;gap:4px;margin-top:8px;
+}
+.s-seg{
+  flex:1;height:3px;border-radius:2px;
+  background:#e0e0e0;transition:background 0.3s;
+}
+.s-seg.weak{background:#e74c3c;}
+.s-seg.medium{background:#f39c12;}
+.s-seg.strong{background:#27ae60;}
+
+.strength-text{font-size:11px;color:var(--light);margin-top:4px;}
+
+.form-error{
+  font-size:11px;color:var(--red);margin-top:5px;display:none;
+}
+.form-error.show{display:block;}
+
+.signup-btn{
+  width:100%;padding:15px;
+  background:linear-gradient(90deg,var(--blue-dark),var(--blue));
+  border:none;border-radius:10px;
+  color:#fff;font-family:'Poppins',sans-serif;
+  font-size:15px;font-weight:600;letter-spacing:0.5px;
+  cursor:pointer;transition:all 0.3s;
+  box-shadow:0 6px 20px rgba(41,121,255,0.3);
+  margin-top:8px;
+  animation:fadeUp 0.7s ease forwards 0.9s;opacity:0;
+}
+.signup-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(41,121,255,0.4);}
+.signup-btn:active{transform:translateY(0);}
+
+.form-footer{
+  margin-top:20px;text-align:center;font-size:13px;color:var(--light);
+  animation:fadeIn 0.6s ease forwards 1s;opacity:0;
+}
+
+/* =====================================================
+   PAGE 2: MAIN APP
+===================================================== */
+#app{
+  position:fixed;inset:0;
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+  background:var(--bg);
+}
+
+.app-header{
+  background:linear-gradient(90deg,var(--blue-dark) 0%,var(--blue) 100%);
+  padding:0 40px;
+  height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+  box-shadow:0 4px 20px rgba(41,121,255,0.35);
+}
+
+.app-header-left{display:flex;align-items:center;gap:14px;}
+
+.header-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:19px;
+}
+
+.header-title{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:700;color:#fff;
+}
+.header-sub{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:1px;}
+
+.header-user{
+  display:flex;align-items:center;gap:10px;
+}
+.user-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.35);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:700;color:#fff;
+  letter-spacing:0;
+}
+.user-name{font-size:13px;font-weight:600;color:#fff;}
+.user-email{font-size:10px;color:rgba(255,255,255,0.5);margin-top:1px;}
+
+.app-body{
+  flex:1;overflow-y:auto;
+  padding:32px 40px;
+}
+
+.section-block{
+  background:#fff;
+  border-radius:16px;
+  border:1.5px solid rgba(41,121,255,0.1);
+  box-shadow:0 4px 18px rgba(41,121,255,0.06);
+  margin-bottom:24px;
+  overflow:hidden;
+}
+
+.section-header{
+  display:flex;align-items:center;gap:14px;
+  padding:18px 26px;
+  border-bottom:1.5px solid rgba(41,121,255,0.07);
+  background:linear-gradient(90deg,#f0f6ff,#e8f2ff);
+}
+
+.section-icon{
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,var(--blue-dark),var(--blue));
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(41,121,255,0.28);
+}
+
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:17px;font-weight:700;color:var(--dark);
+}
+.section-sub{font-size:11px;color:var(--light);margin-top:1px;}
+
+.section-body{padding:24px 26px;}
+
+.input-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:14px;}
+
+.inp{
+  flex:1;min-width:160px;
+  padding:11px 15px;
+  background:#f5f9ff;
+  border:1.5px solid rgba(41,121,255,0.15);
+  border-radius:9px;
+  color:var(--dark);font-family:'Poppins',sans-serif;
+  font-size:13.5px;outline:none;
+  transition:border-color 0.25s,box-shadow 0.25s;
+}
+.inp:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(41,121,255,0.09);
+  background:#fff;
+}
+.inp::placeholder{color:rgba(74,74,106,0.3);}
+
+.btn{
+  padding:12px 0;width:100%;
+  background:linear-gradient(90deg,var(--blue-dark),var(--blue));
+  border:none;border-radius:9px;
+  color:#fff;font-family:'Poppins',sans-serif;
+  font-size:13.5px;font-weight:600;letter-spacing:0.5px;
+  cursor:pointer;transition:all 0.3s;
+  box-shadow:0 5px 18px rgba(41,121,255,0.28);
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 9px 24px rgba(41,121,255,0.38);}
+
+.btn-red{
+  background:linear-gradient(90deg,#c0392b,var(--red));
+  box-shadow:0 5px 16px rgba(231,76,60,0.28);
+}
+.btn-red:hover{box-shadow:0 9px 22px rgba(231,76,60,0.38);}
+
+.btn-sm{padding:10px 22px;width:auto;font-size:13px;}
+
+.alert{
+  padding:10px 15px;border-radius:8px;
+  font-size:12.5px;font-weight:500;
+  margin-top:10px;display:none;
+}
+.alert.success{background:rgba(46,204,113,0.1);border:1.5px solid rgba(46,204,113,0.3);color:#27ae60;}
+.alert.error{background:rgba(231,76,60,0.1);border:1.5px solid rgba(231,76,60,0.3);color:#c0392b;}
+.alert.show{display:block;animation:fadeIn 0.3s ease;}
+
+/* Table */
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+thead tr{background:linear-gradient(90deg,rgba(41,121,255,0.07),rgba(21,101,192,0.07));}
+thead th{
+  padding:11px 15px;text-align:left;
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--light);font-weight:600;
+  border-bottom:1.5px solid rgba(41,121,255,0.09);
+}
+tbody tr{border-bottom:1px solid rgba(41,121,255,0.05);transition:background 0.2s;}
+tbody tr:hover{background:#f0f6ff;}
+tbody tr:last-child{border-bottom:none;}
+tbody td{padding:12px 15px;font-size:13px;color:var(--mid);}
+
+.id-cell{color:var(--blue)!important;font-weight:700!important;letter-spacing:1px;}
+
+.empty-row td{
+  text-align:center;padding:36px;
+  color:var(--light);font-size:13px;letter-spacing:1px;
+}
+
+/* Search Result Box */
+.result-box{
+  background:var(--blue-soft);
+  border:1.5px solid rgba(41,121,255,0.18);
+  border-radius:10px;padding:16px 20px;
+  margin-top:12px;display:none;
+}
+.result-box.show{display:block;animation:fadeIn 0.3s ease;}
+.result-row{display:flex;gap:12px;padding:6px 0;border-bottom:1px solid rgba(41,121,255,0.09);}
+.result-row:last-child{border-bottom:none;}
+.rl{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--light);font-weight:600;min-width:110px;padding-top:2px;}
+.rv{font-size:13.5px;color:var(--dark);font-weight:500;}
+
+/* Exit strip */
+.exit-strip{
+  background:#fff;border-radius:16px;
+  border:1.5px solid rgba(41,121,255,0.09);
+  box-shadow:0 4px 18px rgba(41,121,255,0.06);
+  padding:22px 26px;
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:24px;
+}
+.exit-text h3{font-family:'Playfair Display',serif;font-size:17px;color:var(--dark);}
+.exit-text p{font-size:12px;color:var(--light);margin-top:3px;}
+
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(41,121,255,0.18);border-radius:10px;}
+::-webkit-scrollbar-thumb:hover{background:rgba(41,121,255,0.35);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* Stats row */
+.stats-row{
+  display:flex;gap:16px;margin-bottom:24px;
+  animation:fadeUp 0.6s ease forwards;
+}
+.stat-card{
+  flex:1;background:#fff;border-radius:14px;
+  border:1.5px solid rgba(41,121,255,0.1);
+  box-shadow:0 3px 14px rgba(41,121,255,0.06);
+  padding:18px 20px;
+  display:flex;align-items:center;gap:14px;
+}
+.stat-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:linear-gradient(135deg,var(--blue-dark),var(--blue));
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+  box-shadow:0 4px 12px rgba(41,121,255,0.25);
+}
+.stat-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--dark);}
+.stat-label{font-size:11px;color:var(--light);letter-spacing:1px;text-transform:uppercase;margin-top:1px;}
+</style>
+</head>
+<body>
+
+<!-- =====================================================
+     PAGE 1: SIGN UP
+===================================================== -->
+<div id="signup">
+
+  <!-- Left Panel -->
+  <div class="signup-left">
+    <div class="bg-circle"></div>
+    <div class="bg-circle"></div>
+
+    <div class="sl-icon">📚</div>
+    <h1 class="sl-title">Library<span>Management</span>System</h1>
+    <p class="sl-sub">Professional Web GUI</p>
+    <div class="sl-dots">
+      <div class="sl-dot active"></div>
+      <div class="sl-dot"></div>
+      <div class="sl-dot"></div>
+    </div>
+  </div>
+
+  <!-- Right Panel — Form -->
+  <div class="signup-right">
+    <span class="form-badge">Create Account</span>
+    <h2 class="form-heading">Welcome</h2>
+    <p class="form-sub">Sign up to access the Library Management System</p>
+
+    <div class="form-group">
+      <label class="form-label">Full Name</label>
+      <input class="form-input" type="text" id="su_name" placeholder="Enter your full name" autocomplete="off">
+      <div class="form-error" id="err_name">Please enter your full name.</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <input class="form-input" type="email" id="su_email" placeholder="Enter your email address" autocomplete="off">
+      <div class="form-error" id="err_email">Please enter a valid email address.</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <div class="pwd-wrap">
+        <input class="form-input" type="password" id="su_pwd" placeholder="Create a strong password" oninput="checkStrength()">
+        <button class="pwd-toggle" type="button" onclick="togglePwd('su_pwd',this)">👁️</button>
+      </div>
+      <div class="strength-bar" id="strengthBar">
+        <div class="s-seg" id="s1"></div>
+        <div class="s-seg" id="s2"></div>
+        <div class="s-seg" id="s3"></div>
+        <div class="s-seg" id="s4"></div>
+      </div>
+      <div class="strength-text" id="strengthText">Enter a password</div>
+      <div class="form-error" id="err_pwd">Password must be at least 6 characters.</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Confirm Password</label>
+      <div class="pwd-wrap">
+        <input class="form-input" type="password" id="su_cpwd" placeholder="Re-enter your password">
+        <button class="pwd-toggle" type="button" onclick="togglePwd('su_cpwd',this)">👁️</button>
+      </div>
+      <div class="form-error" id="err_cpwd">Passwords do not match.</div>
+    </div>
+
+    <button class="signup-btn" onclick="handleSignup()">Create Account & Enter System →</button>
+    <p class="form-footer">Your data is session-only and not stored permanently.</p>
+  </div>
+
+</div>
+
+<!-- =====================================================
+     PAGE 2: MAIN APP
+===================================================== -->
+<div id="app">
+
+  <!-- Header -->
+  <div class="app-header">
+    <div class="app-header-left">
+      <div class="header-icon">📚</div>
+      <div>
+        <div class="header-title">Library Management System</div>
+        <div class="header-sub">Professional Web GUI</div>
+      </div>
+    </div>
+    <div class="header-user">
+      <div class="user-avatar" id="avatarInitial">?</div>
+      <div>
+        <div class="user-name" id="displayName">—</div>
+        <div class="user-email" id="displayEmail">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="app-body">
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon">📖</div>
+        <div>
+          <div class="stat-num" id="statTotal">0</div>
+          <div class="stat-label">Total Books</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎓</div>
+        <div>
+          <div class="stat-num" id="statIssued">0</div>
+          <div class="stat-label">Books Issued</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📚</div>
+        <div>
+          <div class="stat-num" id="statAvail">0</div>
+          <div class="stat-label">Available</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. ADD BOOK -->
+    <div class="section-block">
+      <div class="section-header">
+        <div class="section-icon">➕</div>
+        <div>
+          <div class="section-title">Add Book</div>
+          <div class="section-sub">Register a new book in the library</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="input-row">
+          <input class="inp" type="number" id="addID" placeholder="Book ID (e.g. 101)">
+          <input class="inp" type="text" id="addName" placeholder="Book Name">
+        </div>
+        <div class="input-row">
+          <input class="inp" type="text" id="addAuthor" placeholder="Author Name">
+          <input class="inp" type="text" id="addStudent" placeholder="Issued To (Student Name or leave blank)">
+        </div>
+        <div class="input-row">
+          <input class="inp" type="number" id="addPrice" placeholder="Price (Rs.)">
+          <input class="inp" type="number" id="addPages" placeholder="Number of Pages">
+        </div>
+        <button class="btn" onclick="addBook()">Add Book Record</button>
+        <div class="alert success" id="addOk"></div>
+        <div class="alert error" id="addErr"></div>
+      </div>
+    </div>
+
+    <!-- 2. VIEW ALL BOOKS -->
+    <div class="section-block">
+      <div class="section-header">
+        <div class="section-icon">📚</div>
+        <div>
+          <div class="section-title">View All Books</div>
+          <div class="section-sub">Complete library catalogue — <span id="totalCount">0 books</span></div>
+        </div>
+      </div>
+      <div class="section-body" style="padding:0;">
+        <div class="tbl-wrap">
+          <table id="booksTable">
+            <thead>
+              <tr>
+                <th>Book ID</th>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>Issued To</th>
+                <th>Price (Rs.)</th>
+                <th>Pages</th>
+              </tr>
+            </thead>
+            <tbody id="booksBody">
+              <tr class="empty-row"><td colspan="6">📚 No books added yet. Add a book above to get started.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. SEARCH BOOK BY ID -->
+    <div class="section-block">
+      <div class="section-header">
+        <div class="section-icon">🔍</div>
+        <div>
+          <div class="section-title">Search Book by ID</div>
+          <div class="section-sub">Find complete details of a book</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="input-row">
+          <input class="inp" type="number" id="searchId" placeholder="Enter Book ID (e.g. 101)">
+        </div>
+        <button class="btn" style="background:linear-gradient(90deg,#0d7377,#14a085);box-shadow:0 5px 18px rgba(20,160,133,0.28);" onclick="searchBook()">Search Book</button>
+        <div class="alert error" id="searchErr"></div>
+        <div class="result-box" id="searchResult">
+          <div id="searchFields"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. DELETE BOOK BY ID -->
+    <div class="section-block">
+      <div class="section-header">
+        <div class="section-icon">🗑️</div>
+        <div>
+          <div class="section-title">Delete Book by ID</div>
+          <div class="section-sub">Permanently remove a book record</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="input-row">
+          <input class="inp" type="number" id="deleteId" placeholder="Enter Book ID to Delete">
+        </div>
+        <button class="btn btn-red" onclick="deleteBook()">Delete Book Record</button>
+        <div class="alert success" id="delOk"></div>
+        <div class="alert error" id="delErr"></div>
+      </div>
+    </div>
+
+    <!-- 5. EXIT -->
+    <div class="exit-strip">
+      <div class="exit-text">
+        <h3>🚪 Exit System</h3>
+        <p>Log out and return to sign up screen</p>
+      </div>
+      <div>
+        <button class="btn btn-red btn-sm" onclick="exitSystem()">Exit System</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ========== SIGN UP LOGIC ========== */
+function togglePwd(id, btn) {
+  const inp = document.getElementById(id);
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '🙈'; }
+  else { inp.type = 'password'; btn.textContent = '👁️'; }
+}
+
+function checkStrength() {
+  const pwd = document.getElementById('su_pwd').value;
+  const segs = [document.getElementById('s1'), document.getElementById('s2'), document.getElementById('s3'), document.getElementById('s4')];
+  const txt = document.getElementById('strengthText');
+  segs.forEach(s => { s.className = 's-seg'; });
+
+  let score = 0;
+  if (pwd.length >= 6) score++;
+  if (pwd.length >= 10) score++;
+  if (/[A-Z]/.test(pwd) && /[0-9]/.test(pwd)) score++;
+  if (/[^A-Za-z0-9]/.test(pwd)) score++;
+
+  const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+  const classes = ['', 'weak', 'medium', 'medium', 'strong'];
+  for (let i = 0; i < score; i++) segs[i].classList.add(classes[score]);
+  txt.textContent = pwd.length === 0 ? 'Enter a password' : labels[score] || 'Weak';
+}
+
+function showErr(id, show) {
+  const el = document.getElementById(id);
+  el.style.display = show ? 'block' : 'none';
+}
+
+function handleSignup() {
+  const name  = document.getElementById('su_name').value.trim();
+  const email = document.getElementById('su_email').value.trim();
+  const pwd   = document.getElementById('su_pwd').value;
+  const cpwd  = document.getElementById('su_cpwd').value;
+
+  let valid = true;
+
+  if (!name) { showErr('err_name', true); document.getElementById('su_name').classList.add('error'); valid = false; }
+  else { showErr('err_name', false); document.getElementById('su_name').classList.remove('error'); }
+
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!emailOk) { showErr('err_email', true); document.getElementById('su_email').classList.add('error'); valid = false; }
+  else { showErr('err_email', false); document.getElementById('su_email').classList.remove('error'); }
+
+  if (pwd.length < 6) { showErr('err_pwd', true); document.getElementById('su_pwd').classList.add('error'); valid = false; }
+  else { showErr('err_pwd', false); document.getElementById('su_pwd').classList.remove('error'); }
+
+  if (pwd !== cpwd) { showErr('err_cpwd', true); document.getElementById('su_cpwd').classList.add('error'); valid = false; }
+  else { showErr('err_cpwd', false); document.getElementById('su_cpwd').classList.remove('error'); }
+
+  if (!valid) return;
+
+  // Store user info and transition
+  document.getElementById('displayName').textContent = name;
+  document.getElementById('displayEmail').textContent = email;
+  document.getElementById('avatarInitial').textContent = name.charAt(0).toUpperCase();
+
+  const s = document.getElementById('signup');
+  const a = document.getElementById('app');
+  s.style.transition = 'opacity 0.8s ease';
+  s.style.opacity = '0';
+  setTimeout(() => {
+    s.style.display = 'none';
+    a.style.display = 'flex';
+    a.style.opacity = '0';
+    a.style.transition = 'opacity 0.6s ease';
+    setTimeout(() => { a.style.opacity = '1'; }, 30);
+  }, 800);
+}
+
+/* ========== LIBRARY SYSTEM LOGIC (C++ equivalent) ========== */
+let books = [];
+
+function updateStats() {
+  const total = books.length;
+  const issued = books.filter(b => b.student && b.student !== 'N/A' && b.student !== '').length;
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statIssued').textContent = issued;
+  document.getElementById('statAvail').textContent = total - issued;
+  document.getElementById('totalCount').textContent = total + ' book' + (total !== 1 ? 's' : '');
+}
+
+function renderTable() {
+  const tbody = document.getElementById('booksBody');
+  if (!books.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="6">📚 No books added yet. Add a book above to get started.</td></tr>';
+    updateStats(); return;
+  }
+  tbody.innerHTML = books.map(b => `
+    <tr>
+      <td class="id-cell">${b.id}</td>
+      <td>${b.name}</td>
+      <td>${b.author}</td>
+      <td>${b.student || '—'}</td>
+      <td>Rs. ${b.price}</td>
+      <td>${b.pages}</td>
+    </tr>`).join('');
+  updateStats();
+}
+
+// 1. Add Book
+function addBook() {
+  const id     = document.getElementById('addID').value.trim();
+  const name   = document.getElementById('addName').value.trim();
+  const author = document.getElementById('addAuthor').value.trim();
+  const student= document.getElementById('addStudent').value.trim();
+  const price  = document.getElementById('addPrice').value.trim();
+  const pages  = document.getElementById('addPages').value.trim();
+
+  hide('addOk'); hide('addErr');
+
+  if (!id || !name || !author) { show('addErr', '✘ Book ID, Name, and Author are required.'); return; }
+  if (books.some(b => b.id === id)) { show('addErr', `✘ Book with ID "${id}" already exists.`); return; }
+  if (isNaN(id) || Number(id) <= 0) { show('addErr', '✘ Book ID must be a positive number.'); return; }
+
+  books.push({ id, name, author, student: student || 'N/A', price: price || '0', pages: pages || '0' });
+  ['addID','addName','addAuthor','addStudent','addPrice','addPages'].forEach(i => document.getElementById(i).value = '');
+  show('addOk', `✔ "${name}" (ID: ${id}) added successfully!`);
+  setTimeout(() => hide('addOk'), 3500);
+  renderTable();
+}
+
+// 2. View All — auto-rendered via renderTable()
+
+// 3. Search Book by ID
+function searchBook() {
+  const id = document.getElementById('searchId').value.trim();
+  hide('searchErr');
+  document.getElementById('searchResult').classList.remove('show');
+
+  if (!id) { show('searchErr', '✘ Please enter a Book ID.'); return; }
+  const b = books.find(x => x.id === id);
+  if (!b) { show('searchErr', `✘ Book with ID "${id}" not found.`); return; }
+
+  document.getElementById('searchFields').innerHTML = `
+    <div class="result-row"><span class="rl">Book ID</span><span class="rv" style="color:var(--blue);font-weight:700;">${b.id}</span></div>
+    <div class="result-row"><span class="rl">Book Name</span><span class="rv">${b.name}</span></div>
+    <div class="result-row"><span class="rl">Author</span><span class="rv">${b.author}</span></div>
+    <div class="result-row"><span class="rl">Issued To</span><span class="rv">${b.student}</span></div>
+    <div class="result-row"><span class="rl">Price</span><span class="rv">Rs. ${b.price}</span></div>
+    <div class="result-row"><span class="rl">Pages</span><span class="rv">${b.pages}</span></div>`;
+  document.getElementById('searchResult').classList.add('show');
+}
+
+// 4. Delete Book by ID
+function deleteBook() {
+  const id = document.getElementById('deleteId').value.trim();
+  hide('delOk'); hide('delErr');
+
+  if (!id) { show('delErr', '✘ Please enter a Book ID.'); return; }
+  const idx = books.findIndex(x => x.id === id);
+  if (idx === -1) { show('delErr', `✘ Book with ID "${id}" not found.`); return; }
+
+  const name = books[idx].name;
+  books.splice(idx, 1);
+  document.getElementById('deleteId').value = '';
+  show('delOk', `✔ "${name}" (ID: ${id}) deleted successfully.`);
+  setTimeout(() => hide('delOk'), 3500);
+  renderTable();
+}
+
+// 5. Exit
+function exitSystem() {
+  if (!confirm('Exit system and return to sign up?')) return;
+  books = [];
+  renderTable();
+  const a = document.getElementById('app');
+  const s = document.getElementById('signup');
+  // Reset form
+  ['su_name','su_email','su_pwd','su_cpwd'].forEach(i => document.getElementById(i).value = '');
+  document.getElementById('strengthText').textContent = 'Enter a password';
+  ['s1','s2','s3','s4'].forEach(i => { document.getElementById(i).className = 's-seg'; });
+
+  a.style.transition = 'opacity 0.8s ease'; a.style.opacity = '0';
+  setTimeout(() => {
+    a.style.display = 'none';
+    s.style.display = 'flex'; s.style.opacity = '0'; s.style.transition = 'opacity 0.7s ease';
+    setTimeout(() => { s.style.opacity = '1'; }, 50);
+  }, 800);
+}
+
+function show(id, msg) { const el = document.getElementById(id); if (msg) el.textContent = msg; el.classList.add('show'); }
+function hide(id) { document.getElementById(id).classList.remove('show'); }
+
+// Enter key support
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const f = document.activeElement;
+    if (!f || !f.id) return;
+    if (['su_name','su_email','su_pwd','su_cpwd'].includes(f.id)) handleSignup();
+    else if (f.id.startsWith('add')) addBook();
+    else if (f.id === 'searchId') searchBook();
+    else if (f.id === 'deleteId') deleteBook();
+  }
+});
+</script>
+</body>
+</html>
