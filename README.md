@@ -26,7 +26,9 @@ This project was developed for educational purposes and demonstrates the practic
 - 🗑️ **Delete Book Record** – Remove a book from the library system seamlessly.
 - 🗂️ **Record Management** – Organize and manage library information efficiently.
 - 💻 **User-Friendly Interface** – Simple and clean menu-driven console application.
-
+<img width="1357" height="538" alt="image" src="https://github.com/user-attachments/assets/5b89239c-b66c-4e77-8e04-26d33b6a3dcd" />
+<img width="1342" height="550" alt="image" src="https://github.com/user-attachments/assets/d4069ce6-40bc-462b-bb84-950d46101784" />
+<img width="1360" height="582" alt="image" src="https://github.com/user-attachments/assets/e9c64db2-1b3f-471a-a8f9-6aa79013499e" />
 ---
 
 ## 💻 Technologies Used
@@ -34,6 +36,7 @@ This project was developed for educational purposes and demonstrates the practic
 | Technology / Concept | Description |
 | :--- | :--- |
 | **C++** | Core programming language used for development |
+<img width="698" height="592" alt="image" src="https://github.com/user-attachments/assets/fc5bb2db-5847-482e-b5c7-fffc51712b0d" />
 | **Structures** | Used for defining and grouping book records (`struct`) |
 | **Functions** | Modularized code logic for clean and reusable blocks |
 | **File Handling** | Persistent storage (`fstream`) to save/load data on disk |
@@ -59,6 +62,17 @@ The project helped strengthen programming fundamentals and provided hands-on exp
 
 ---
 
+## 🌟 Support the Project
+
+If you found this project useful or interesting, please consider giving it a **⭐ Star** on GitHub.
+
+Your support is greatly appreciated and motivates me to continue learning and building more projects.
+
+🔗 **Repository Link:** https://github.com/Laiba-Wajid/Library-Management-System.git
+
+**Don't forget to leave a Star ⭐**
+
+---
 ## 👨‍💻 Author
 * **Name:** Laiba Wajid
 * **Role:** Developer (First Semester Academic Project)
