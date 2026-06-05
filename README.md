@@ -43,6 +43,7 @@ This project was developed for educational purposes and demonstrates the practic
 
 
 
+<img width="606" height="629" alt="image" src="https://github.com/user-attachments/assets/9a1a3381-493c-48d9-b96e-3e78345147b6" />
 
 ---
 
