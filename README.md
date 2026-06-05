@@ -36,12 +36,13 @@ This project was developed for educational purposes and demonstrates the practic
 | Technology / Concept | Description |
 | :--- | :--- |
 | **C++** | Core programming language used for development |
-<img width="698" height="592" alt="image" src="https://github.com/user-attachments/assets/fc5bb2db-5847-482e-b5c7-fffc51712b0d" />
-
 | **Structures** | Used for defining and grouping book records (`struct`) |
 | **Functions** | Modularized code logic for clean and reusable blocks |
 | **File Handling** | Persistent storage (`fstream`) to save/load data on disk |
 | **Console UI** | Interactive command-line user interface |
+
+
+
 
 ---
 
